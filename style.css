@@ -1,0 +1,38 @@
+/*
+Theme Name:   Magbook Child Theme
+Theme URI:    
+Description:  A MAgbook Child theme 
+Author:       Harris
+Author URI:   
+Template:     magbook
+Version:      1.0.0
+Text Domain:  twentytwentyonechild
+*/
+
+.container-one{
+	width: 65%;
+	float:left;
+	box-sizing: border-box;
+}
+
+.post-one{
+	width: 60%;
+	padding-left: 30px;
+	box-sizing: border-box;
+}
+
+.clear{
+	clear:both;
+}
+
+.post-two{
+	width: 40%;
+	box-sizing: border-box;
+}
+
+.container-2{
+	width:35%;
+	float:right;
+	box-sizing: border-box;
+	padding-left: 30px;
+}
