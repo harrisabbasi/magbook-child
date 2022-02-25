@@ -41,6 +41,8 @@ get_header(); ?>
 			</div>
 		</div>
 		<?php echo do_shortcode("[category_one category='Fashion'][/category_one]"); ?>
+
+		<?php echo do_shortcode("[category_two category='Entertainment'][/category_two]"); ?>
 	</div>
 	
 		<?php if( is_active_sidebar( 'magbook_template_sidebar_section' )){ ?>

@@ -292,4 +292,108 @@ function shortcode_one( $atts = [], $content = null, $tag = '' ) {
 add_shortcode( 'category_one', 'shortcode_one' );
 
 
+/**
+ * The [category_two] shortcode.
+ *
+ * Displays a category posts with a specific layout
+ *
+ * @param array  $atts    Shortcode attributes. Default empty.
+ * @param string $content Shortcode content. Default null.
+ * @param string $tag     Shortcode tag (name). Default empty.
+ * @return string Shortcode output.
+ */
+function shortcode_two( $atts = [], $content = null, $tag = '' ) {
+    // normalize attribute keys, lowercase
+    $atts = array_change_key_case( (array) $atts, CASE_LOWER );
+ 
+    // override default attributes with user attributes
+    $category_atts = shortcode_atts(
+        array(
+            'category' => '',
+        ), $atts, $tag
+    );
+
+    if ($category_atts['category'] != ""){
+        $args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => 6, 'post_status' => 'publish',
+                        'category_name' => $category_atts['category']);
+        $posts = new WP_Query( $args );
+    }
+    ?>
+    <div class="category-two">
+        <div class="container-three">
+        <?php
+        $i = 1;
+        while( $posts->have_posts() ): $posts->the_post();
+            if ($i == 1 || $i == 2){ ?>
+                <div class="post-half">
+                    <article id="post-<?php the_ID(); ?>" <?php post_class();?>>
+                    <?php if(has_post_thumbnail() ){ ?>
+                        <div class="cat-box-image">
+                            <figure class="post-featured-image">
+                                <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                                </figure>
+                                        <!-- end .post-featured-image -->
+                        </div>
+                    <?php }
+                        $cats = get_the_category(get_the_ID());
+                        $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
+                        ?>
+                        <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+                        <div class="cat-box-text">
+                            <header class="entry-header">
+                                <h2 class="entry-title">
+                                    <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                </h2>
+                                    <!-- end.entry-title -->
+                            </header>
+                                <!-- end .entry-header -->
+                        </div>
+                            
+                    </article>
+                </div>
+            <?php
+            } ?>
+                
+            <?php if ($i > 2){ ?>
+                <div class="post-quarter">
+                    <article id="post-<?php the_ID(); ?>" <?php post_class();?>>
+                        <?php if(has_post_thumbnail() ){ ?>
+                            <div class="cat-box-image">
+                                <figure class="post-featured-image">
+                                    <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                                    </figure>
+                                            <!-- end .post-featured-image -->
+                            </div>
+                        <?php }
+                            $cats = get_the_category(get_the_ID());
+                            $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
+                            ?>
+                            <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+                            <div class="cat-box-text">
+                                <header class="entry-header">
+                                    <h2 class="entry-title">
+                                        <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                    </h2>
+                                        <!-- end.entry-title -->
+                                </header>
+                                    <!-- end .entry-header -->
+                            </div>
+                                
+                    </article>
+                </div>
+            <?php } ?>
+            
+                
+        <?php
+        $i++;
+        endwhile;
+        ?>
+        </div>
+    </div>
+    <?php
+
+}
+ 
+add_shortcode( 'category_two', 'shortcode_two' );
+
 ?>

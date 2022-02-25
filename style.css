@@ -36,3 +36,18 @@ Text Domain:  twentytwentyonechild
 	box-sizing: border-box;
 	padding-left: 30px;
 }
+
+.container-three{
+	display: flex;
+	flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.post-half{
+	width:47.5%;
+}
+
+.post-quarter{
+	width: 21.25%;
+}
