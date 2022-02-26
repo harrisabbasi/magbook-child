@@ -21,6 +21,12 @@ Text Domain:  twentytwentyonechild
 	box-sizing: border-box;
 }
 
+.post-three{
+	width: 60%;
+	padding-right: 30px;
+	box-sizing: border-box;
+}
+
 .clear{
 	clear:both;
 }
@@ -29,6 +35,12 @@ Text Domain:  twentytwentyonechild
 	width: 40%;
 	box-sizing: border-box;
 }
+
+.post-four{
+	width: 40%;
+	box-sizing: border-box;
+}
+
 
 .container-2{
 	width:35%;
@@ -50,4 +62,12 @@ Text Domain:  twentytwentyonechild
 
 .post-quarter{
 	width: 21.25%;
+}
+
+.video-one{
+	width:65%;
+}
+
+.video-two{
+	width:30%;
 }

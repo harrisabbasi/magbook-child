@@ -43,6 +43,10 @@ get_header(); ?>
 		<?php echo do_shortcode("[category_one category='Fashion'][/category_one]"); ?>
 
 		<?php echo do_shortcode("[category_two category='Entertainment'][/category_two]"); ?>
+
+		<?php echo do_shortcode("[videos][/videos]"); ?>
+
+		<?php echo do_shortcode("[category_three category='Business'][/category_three]"); ?>
 	</div>
 	
 		<?php if( is_active_sidebar( 'magbook_template_sidebar_section' )){ ?>
