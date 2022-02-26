@@ -732,8 +732,14 @@ function shortcode_five( $atts = [], $content = null, $tag = '' ) {
         endwhile;
         wp_reset_postdata();
         ?>
+        <?php if ($i > 5) { ?>
         </div>
         <div class="clear"></div>
+        <?php } else { ?>
+        </div>
+    </div>
+    <div class="clear hot"></div>
+        <?php } ?>
     </div>
     <?php
 
