@@ -148,10 +148,10 @@ function my_custom_popular_posts_html_list($popular_posts, $instance) {
 
         $output .= "<li>";
         $output .= get_the_post_thumbnail($popular_post->id);
-        $output .= "<div><span>" . $i . "." . "</span>";
-        $output .= "<h2 class=\"entry-title\"><a href=\"" . get_permalink($popular_post->id) . "\" title=\"" . esc_attr($popular_post->title) . "\">" . $popular_post->title . "</a></h2>";
-        $output .= "</div>";
         $output .= $stats;
+        $output .= "<div class='box'><span>" . $i . "." . "</span>";
+        $output .= "<h2 class=\"entry-title\"><a href=\"" . get_permalink($popular_post->id) . "\" title=\"" . esc_attr($popular_post->title) . "\">" . $popular_post->title . "</a></h2>";
+        $output .= "<div class='clear'></div></div>";
         $output .= $excerpt;
         $output .= "</li>" . "\n";
 
@@ -622,4 +622,122 @@ function shortcode_four( $atts = [], $content = null, $tag = '' ) {
 }
  
 add_shortcode( 'category_three', 'shortcode_four' );
+
+/**
+ * The [category_four] shortcode.
+ *
+ * Displays a category posts with a specific layout
+ *
+ * @param array  $atts    Shortcode attributes. Default empty.
+ * @param string $content Shortcode content. Default null.
+ * @param string $tag     Shortcode tag (name). Default empty.
+ * @return string Shortcode output.
+ */
+function shortcode_five( $atts = [], $content = null, $tag = '' ) {
+    // normalize attribute keys, lowercase
+    $atts = array_change_key_case( (array) $atts, CASE_LOWER );
+ 
+    // override default attributes with user attributes
+    $category_atts = shortcode_atts(
+        array(
+            'category' => '',
+        ), $atts, $tag
+    );
+
+    if ($category_atts['category'] != ""){
+        $args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => 14, 'post_status' => 'publish',
+                        'category_name' => $category_atts['category']);
+        $posts = new WP_Query( $args );
+    }
+    ?>
+    <div class="category-four">
+        <div class="container-one float-right">
+        <?php
+        $i = 1;
+        while( $posts->have_posts() ): $posts->the_post();
+            if ($i == 1){ ?>
+                <article id="post-<?php the_ID(); ?>" <?php post_class();?>>
+                <?php if(has_post_thumbnail() ){ ?>
+                    <div class="cat-box-image">
+                        <figure class="post-featured-image">
+                            <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                        </figure>
+                                        <!-- end .post-featured-image -->
+                    </div>
+                    <?php }
+                    $cats = get_the_category(get_the_ID());
+                    $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
+                    ?>
+                    <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+                    <div class="cat-box-text">
+                        <header class="entry-header">
+                            <h2 class="entry-title">
+                                <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                            </h2>
+                                <!-- end.entry-title -->
+                        </header>
+                            <!-- end .entry-header -->
+                    </div>
+                            
+                </article>
+                <div class="mb-popular">
+            <?php
+            } ?>
+                
+            <?php if ($i > 1 && $i < 6){ ?>
+                <div <?php post_class('mb-post');?>>
+                    <?php if ( has_post_thumbnail() ) { ?>
+                        <figure class="mb-featured-image">
+                            <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                        </figure> <!-- end.post-featured-image -->
+                    <?php } ?>
+                    <div class="mb-content">
+                        <?php
+                        $cats = get_the_category(get_the_ID());
+                        $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
+                        ?>
+                        <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+
+                        <?php the_title( sprintf( '<h3 class="mb-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' ); ?>
+                        
+                    </div> <!-- end .mb-content -->
+                </div><!-- end .mb-post -->
+            <?php } 
+            if ($i == 5){ ?>
+                </div>
+            </div>
+            <div class="container-four mb-popular float-left">
+        <?php }
+            if ($i > 5){ ?>
+                <div <?php post_class('mb-post');?>>
+                    <?php if ( has_post_thumbnail() ) { ?>
+                        <figure class="mb-featured-image">
+                            <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                        </figure> <!-- end.post-featured-image -->
+                    <?php } ?>
+                    <div class="mb-content">
+                        <?php
+                        $cats = get_the_category(get_the_ID());
+                        $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
+                        ?>
+                        <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+
+                        <?php the_title( sprintf( '<h3 class="mb-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' ); ?>
+                        
+                    </div> <!-- end .mb-content -->
+                </div><!-- end .mb-post -->
+                
+        <?php }
+        $i++;
+        endwhile;
+        wp_reset_postdata();
+        ?>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <?php
+
+}
+ 
+add_shortcode( 'category_four', 'shortcode_five' );
 ?>

@@ -49,6 +49,13 @@ Text Domain:  twentytwentyonechild
 	padding-left: 30px;
 }
 
+.container-four{
+	width:35%;
+	float:right;
+	box-sizing: border-box;
+	padding-right: 30px;
+}
+
 .container-three{
 	display: flex;
 	flex-wrap: wrap;
@@ -70,4 +77,21 @@ Text Domain:  twentytwentyonechild
 
 .video-two{
 	width:30%;
+}
+
+.box{
+	padding-top: 10px;
+}
+
+.box span{
+	float: left;
+    line-height: 40px;
+    font-size: 40px;
+    padding: 5px;
+    width: 20%;
+}
+
+.box .entry-title{
+	float: left;
+    width: 80%;
 }

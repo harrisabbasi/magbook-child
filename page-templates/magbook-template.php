@@ -17,7 +17,7 @@ get_header(); ?>
 	} ?>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-5">
+			<div class="col-sm-3">
 				<?php 
 				if( is_active_sidebar( 'new_section_one' )){
 					dynamic_sidebar( 'new_section_one' );
@@ -25,7 +25,7 @@ get_header(); ?>
 				the_content();
 				?>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-5">
 				<?php 
 				if( is_active_sidebar( 'new_section_two' )){
 					dynamic_sidebar( 'new_section_two' );
