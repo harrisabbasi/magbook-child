@@ -48,6 +48,16 @@ function widgets_new_init() {
             'after_title' => '</h3>',
         ));
 
+    register_sidebar(array(
+            'name' => __('Single Post Sidebar', 'magbook'),
+            'id' => 'single_post_sidebar',
+            'description' => __('The sidebar on single posts', 'magbook'),
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget' => '</section>',
+            'before_title' => '<h3 class="widget-title">',
+            'after_title' => '</h3>',
+        ));
+
     register_widget( 'Latest_news_widget' );
     register_widget( 'Three_tabs' );
 }
