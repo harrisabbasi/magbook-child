@@ -47,6 +47,8 @@ get_header(); ?>
 		<?php echo do_shortcode("[videos][/videos]"); ?>
 
 		<?php echo do_shortcode("[category_three category='Business'][/category_three]"); ?>
+
+		<?php echo do_shortcode("[more_like_this category='' posts_per_page='10' ][/more_like_this]"); ?>
 	</div>
 	
 		<?php if( is_active_sidebar( 'magbook_template_sidebar_section' )){ ?>

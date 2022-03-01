@@ -756,4 +756,156 @@ function shortcode_five( $atts = [], $content = null, $tag = '' ) {
 }
  
 add_shortcode( 'category_four', 'shortcode_five' );
+
+/**
+ * The [more_like_this] shortcode.
+ *
+ * Displays additional posts
+ *
+ * @param array  $atts    Shortcode attributes. Default empty.
+ * @param string $content Shortcode content. Default null.
+ * @param string $tag     Shortcode tag (name). Default empty.
+ * @return string Shortcode output.
+ */
+function shortcode_six( $atts = [], $content = null, $tag = '' ) {
+    // normalize attribute keys, lowercase
+    $atts = array_change_key_case( (array) $atts, CASE_LOWER );
+ 
+    // override default attributes with user attributes
+    $category_atts = shortcode_atts(
+        array(
+            'category' => '',
+            'posts_per_page' => 10
+        ), $atts, $tag
+    );
+
+    if ($category_atts['category'] != ""){
+        $args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => $category_atts['posts_per_page'], 'paged' => 2, 'post_status' => 'publish', 'category_name' => $category_atts['category']);
+        $posts = new WP_Query( $args );
+    }
+    else{
+        $args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => $category_atts['posts_per_page'], 'paged' =>2, 'post_status' => 'publish');
+        $posts = new WP_Query( $args );
+    }
+
+    ?>
+    <div class="more-like-this mb-popular">
+        <?php
+        while( $posts->have_posts() ): $posts->the_post(); ?>
+            <div <?php post_class('mb-post');?>>
+                <?php if ( has_post_thumbnail() ) { ?>
+                    <figure class="mb-featured-image">
+                        <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                    </figure> <!-- end.post-featured-image -->
+                <?php } ?>
+                <div class="mb-content">
+                    <?php
+                    $cats = get_the_category(get_the_ID());
+                    $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
+                    ?>
+                    <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+
+                    <?php the_title( sprintf( '<h3 class="mb-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' ); ?>
+                    
+                </div> <!-- end .mb-content -->
+            </div><!-- end .mb-post -->
+            
+        <?php 
+        endwhile;
+        wp_reset_postdata();
+        ?>
+        <button id="load-more" data-page="3" data-posts="<?php echo $category_atts['posts_per_page'] ?>" data-category="<?php echo $category_atts['category'] ?>" >Load More Posts</button>
+        <?php wp_nonce_field( 'more_posts_nonce_action', 'more_posts_nonce' ); ?>
+    </div>
+    <?php
+
+}
+ 
+add_shortcode( 'more_like_this', 'shortcode_six' );
+
+function magbook_ajax_enqueue_scripts() {
+    $theme_version = wp_get_theme()->get( 'Version' );
+    $script_handle = 'magbook-ajax';
+
+    wp_enqueue_script( $script_handle, get_stylesheet_directory_uri() . '/js/index.js',
+        array( 'jquery' ),
+        $theme_version,
+        false
+    );
+
+    $ajaxurl = admin_url( 'admin-ajax.php');
+
+    wp_localize_script( $script_handle, 'magbookAjaxLocalization', array(
+        'ajaxurl' => $ajaxurl,
+        'action' => 'magbook_ajax_more_post',
+        'noPosts' => esc_html__('No older posts found', 'magbook-child'),
+    ) );
+}
+
+add_action( 'wp_enqueue_scripts', 'magbook_ajax_enqueue_scripts' );
+
+
+function magbook_ajax_more_post_ajax() {
+    if ( ! isset( $_POST['morePostsNonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['morePostsNonce'] ), 'more_posts_nonce_action' ) ) {
+        return wp_send_json_error( esc_html__( 'Number not only once is invalid', 'magbook-child'), 404 );
+    }
+
+    $posts_per_page = ! empty( $_POST['postsPerPage'] ) ? (int) $_POST['postsPerPage'] : 10;
+    $page = ! empty( $_POST['paged'] ) ? (int) $_POST['paged'] : 1;
+    $category = ! empty( $_POST['category'] ) ? sanitize_text_field( wp_unslash( $_POST['category'] ) ) : '';
+
+    $query_args = array(
+        'post_type' => 'post',
+        'post_status' => 'published',
+        'posts_per_page' => $posts_per_page,
+        'paged' => $page,
+    );
+
+    if ( ! empty( $category ) ) {
+        $query_args['cat'] = $category;
+    }
+
+    $posts_query = new WP_Query( $query_args );
+
+    $posts_out = '';
+
+    ob_start();
+    if ($posts_query->have_posts()) {
+        while ($posts_query->have_posts()) {
+            $posts_query->the_post(); ?>
+
+            <div <?php post_class('mb-post');?>>
+                <?php if ( has_post_thumbnail() ) { ?>
+                    <figure class="mb-featured-image">
+                        <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                    </figure> <!-- end.post-featured-image -->
+                <?php } ?>
+                <div class="mb-content">
+                    <?php
+                    $cats = get_the_category(get_the_ID());
+                    $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
+                    ?>
+                    <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+
+                    <?php the_title( sprintf( '<h3 class="mb-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' ); ?>
+                    
+                </div> <!-- end .mb-content -->
+            </div><!-- end .mb-post -->
+        <?php
+        }
+        ?>
+        <button id="load-more" data-page="<?php echo $page + 1 ?>" data-posts="<?php echo $posts_per_page ?>" data-category="<?php echo $category ?>" >Load More Posts</button>
+        <?php
+    }
+
+    $posts_out = ob_get_clean();
+
+    wp_reset_postdata();
+
+    wp_send_json_success( $posts_out, 200 );
+
+}
+
+add_action( 'wp_ajax_nopriv_magbook_ajax_more_post', 'magbook_ajax_more_post_ajax' );
+add_action( 'wp_ajax_magbook_ajax_more_post', 'magbook_ajax_more_post_ajax' );
 ?>
