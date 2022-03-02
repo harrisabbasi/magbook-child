@@ -1,16 +1,17 @@
 jQuery(document).ready(function($) {
-	const $button = $('#load-more');
 	const $nonce = $('#more_posts_nonce');
-	const postsPerPage = $button.data("posts");
-    const category = $button.data('category');
-	const page = $button.data('page');
-
-	$button.on('click', function(event) {
-		loadAjaxPosts(event);
-	});
+	
+	$(document).on("click", "#load-more", function() {
+	    loadAjaxPosts(event);;
+	 });
 
 	function loadAjaxPosts(event) {
 		event.preventDefault();
+		var $button = $('#load-more');
+		var postsPerPage = $button.data("posts");
+	    var category = $button.data('category');
+		var page = $button.data('page');
+
 		$.ajax({
 			'type': 'POST',
 			'url': magbookAjaxLocalization.ajaxurl,
@@ -23,7 +24,7 @@ jQuery(document).ready(function($) {
 			}
 		})
 		.done(function(response) {
-			console.log(response);
+			$button.remove();
 			$(".more-like-this").append(response.data);
 		})
 		.fail(function(error) {

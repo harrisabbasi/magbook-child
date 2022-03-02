@@ -856,7 +856,7 @@ function magbook_ajax_more_post_ajax() {
 
     $query_args = array(
         'post_type' => 'post',
-        'post_status' => 'published',
+        'post_status' => 'publish',
         'posts_per_page' => $posts_per_page,
         'paged' => $page,
     );
