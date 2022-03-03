@@ -145,3 +145,9 @@ Text Domain:  twentytwentyonechild
 	left:5%;
 	width: 90%;
 }
+
+/*Text infront of image styling ends*/
+
+.more-like-this .mb-title a{
+	font-size: 22px;
+}

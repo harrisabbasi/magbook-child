@@ -820,7 +820,7 @@ function shortcode_six( $atts = [], $content = null, $tag = '' ) {
         endwhile;
         wp_reset_postdata();
         ?>
-        <button id="load-more" data-page="3" data-posts="<?php echo $category_atts['posts_per_page'] ?>" data-category="<?php echo $category_atts['category'] ?>" >Load More Posts</button>
+        <button class="btn btn-primary" id="load-more" data-page="3" data-posts="<?php echo $category_atts['posts_per_page'] ?>" data-category="<?php echo $category_atts['category'] ?>" >Load More Posts</button>
         <?php wp_nonce_field( 'more_posts_nonce_action', 'more_posts_nonce' ); ?>
     </div>
     <?php }
@@ -900,7 +900,7 @@ function magbook_ajax_more_post_ajax() {
         <?php
         }
         ?>
-        <button id="load-more" data-page="<?php echo $page + 1 ?>" data-posts="<?php echo $posts_per_page ?>" data-category="<?php echo $category ?>" >Load More Posts</button>
+        <button class="btn btn-primary" id="load-more" data-page="<?php echo $page + 1 ?>" data-posts="<?php echo $posts_per_page ?>" data-category="<?php echo $category ?>" >Load More Posts</button>
         <?php
     }
 
