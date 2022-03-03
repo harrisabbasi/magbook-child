@@ -26,6 +26,8 @@ get_header(); ?>
 				<?php echo do_shortcode("[wpp range='last7days' limit=10 stats_views=0 stats_date=1 order_by='views' cat=" . $wp_query->get_queried_object_id() . "]"); ?>
 			</div>
 		 </div>
+
+		 <?php echo do_shortcode("[more_like_this category=" .$wp_query->get_queried_object()->slug . " posts_per_page='14' ][/more_like_this]"); ?>
 	</div>
 </div>
  

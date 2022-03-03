@@ -107,7 +107,7 @@ class Latest_news_widget extends WP_Widget {
 					<?php
 					while( $get_featured_posts->have_posts() ):$get_featured_posts->the_post(); 
 					?>
-					<div class="latest-news">
+					<div class="latest-news image-text">
  						<article id="post-<?php the_ID(); ?>" <?php post_class();?>>
 							<?php if(has_post_thumbnail() ){ ?>
 							<div class="cat-box-image">
@@ -121,7 +121,7 @@ class Latest_news_widget extends WP_Widget {
 							$cats = get_the_category(get_the_ID());
 							$human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
 							?>
-							<p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+							<p class="cat-info"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
 							<div class="cat-box-text">
 								<header class="entry-header">
 									<h2 class="entry-title">

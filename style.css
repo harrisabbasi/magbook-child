@@ -111,3 +111,37 @@ Text Domain:  twentytwentyonechild
 .flex-container article{
 	width: 22.5%;
 }
+
+.category-title{
+	text-align: center;
+}
+
+/*Text infront of image styling*/
+.image-text article{
+	position: relative;
+	color: #fff;
+	overflow: hidden;
+}
+
+.image-text .entry-title a{
+	color:#fff;
+}
+
+.image-text figure{
+	opacity: 0.8;
+}
+
+.image-text .cat-info{
+	position: absolute;
+	bottom: 90px;
+	left:5%;
+	width: 90%;
+}
+
+.image-text .cat-box-text{
+	position: absolute;
+	bottom: 50px;
+	transform: translateY(50%);
+	left:5%;
+	width: 90%;
+}

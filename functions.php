@@ -202,12 +202,13 @@ function shortcode_one( $atts = [], $content = null, $tag = '' ) {
     }
     ?>
     <div class="category-one">
+        <h1 class="category-title"><?php echo $category_atts['category'] ?></h1>
         <div class="container-one">
         <?php
         $i = 1;
         while( $posts->have_posts() ): $posts->the_post();
             if ($i == 1){ ?>
-                <div class="post-one float-right">
+                <div class="post-one float-right image-text">
                     <article id="post-<?php the_ID(); ?>" <?php post_class();?>>
                     <?php if(has_post_thumbnail() ){ ?>
                         <div class="cat-box-image">
@@ -220,7 +221,7 @@ function shortcode_one( $atts = [], $content = null, $tag = '' ) {
                         $cats = get_the_category(get_the_ID());
                         $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
                         ?>
-                        <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+                        <p class="cat-info"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
                         <div class="cat-box-text">
                             <header class="entry-header">
                                 <h2 class="entry-title">
@@ -331,12 +332,13 @@ function shortcode_two( $atts = [], $content = null, $tag = '' ) {
     }
     ?>
     <div class="category-two">
+        <h1 class="category-title"><?php echo $category_atts['category'] ?></h1>
         <div class="container-three">
         <?php
         $i = 1;
         while( $posts->have_posts() ): $posts->the_post();
             if ($i == 1 || $i == 2){ ?>
-                <div class="post-half">
+                <div class="post-half image-text">
                     <article id="post-<?php the_ID(); ?>" <?php post_class();?>>
                     <?php if(has_post_thumbnail() ){ ?>
                         <div class="cat-box-image">
@@ -349,7 +351,7 @@ function shortcode_two( $atts = [], $content = null, $tag = '' ) {
                         $cats = get_the_category(get_the_ID());
                         $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
                         ?>
-                        <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+                        <p class="cat-info"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
                         <div class="cat-box-text">
                             <header class="entry-header">
                                 <h2 class="entry-title">
@@ -438,11 +440,12 @@ function shortcode_three( $atts = [], $content = null, $tag = '' ) {
     
     ?>
     <div class="videos">
+        <h1 class="category-title">Videos</h1>
         <?php
         $i = 1;
         while( $videos->have_posts() ): $videos->the_post();
             if ($i == 1){ ?>
-                <div class="video-one float-left">
+                <div class="video-one float-left image-text">
                     <article id="post-<?php the_ID(); ?>" <?php post_class();?>>
                     <?php if(has_post_thumbnail() ){ ?>
                         <div class="cat-box-image">
@@ -455,7 +458,7 @@ function shortcode_three( $atts = [], $content = null, $tag = '' ) {
                         $cats = get_the_category(get_the_ID());
                         $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
                         ?>
-                        <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+                        <p class="cat-info"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
                         <div class="cat-box-text">
                             <header class="entry-header">
                                 <h2 class="entry-title">
@@ -533,12 +536,13 @@ function shortcode_four( $atts = [], $content = null, $tag = '' ) {
     }
     ?>
     <div class="category-one">
+        <h1 class="category-title"><?php echo $category_atts['category'] ?></h1>
         <div class="container-one">
         <?php
         $i = 1;
         while( $posts->have_posts() ): $posts->the_post();
             if ($i == 1){ ?>
-                <div class="post-three float-left">
+                <div class="post-three float-left image-text">
                     <article id="post-<?php the_ID(); ?>" <?php post_class();?>>
                     <?php if(has_post_thumbnail() ){ ?>
                         <div class="cat-box-image">
@@ -551,7 +555,7 @@ function shortcode_four( $atts = [], $content = null, $tag = '' ) {
                         $cats = get_the_category(get_the_ID());
                         $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
                         ?>
-                        <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+                        <p class="cat-info"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
                         <div class="cat-box-text">
                             <header class="entry-header">
                                 <h2 class="entry-title">
@@ -789,7 +793,9 @@ function shortcode_six( $atts = [], $content = null, $tag = '' ) {
     }
 
     ?>
+    <?php if ($posts->have_posts()) { ?>
     <div class="more-like-this mb-popular">
+        <h1 class="category-title">More Like This</h1>
         <?php
         while( $posts->have_posts() ): $posts->the_post(); ?>
             <div <?php post_class('mb-post');?>>
@@ -817,7 +823,7 @@ function shortcode_six( $atts = [], $content = null, $tag = '' ) {
         <button id="load-more" data-page="3" data-posts="<?php echo $category_atts['posts_per_page'] ?>" data-category="<?php echo $category_atts['category'] ?>" >Load More Posts</button>
         <?php wp_nonce_field( 'more_posts_nonce_action', 'more_posts_nonce' ); ?>
     </div>
-    <?php
+    <?php }
 
 }
  
