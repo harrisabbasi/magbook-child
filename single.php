@@ -15,6 +15,7 @@ $magbook_display_page_single_featured_image = $magbook_settings['magbook_display
 			<main id="main" class="site-main" role="main">
 			<?php global $magbook_settings;
 			while( have_posts() ) {
+				$post_id = get_the_ID();
 				the_post(); ?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class();?>>
 					<?php if(has_post_thumbnail() && $magbook_display_page_single_featured_image == 0 ){ ?>
@@ -98,10 +99,12 @@ $magbook_display_page_single_featured_image = $magbook_settings['magbook_display
 				$cat_name = $cats[0]->slug;
 				$get_related_posts = new WP_Query( array(
 					  	'posts_per_page' 			=> 8,
+					  	'post__not_in'	=>	array(get_the_ID()),
 					  	'category_name'				=> esc_attr($cat_name),
 					  	'post_status'		=>	'publish',
 					  	'ignore_sticky_posts'=>	'true'
 					  ) ); ?>
+				<h1 class="category-title">You May Like</h1>
 				<div class="flex-container">
 					<?php 
 					while( $get_related_posts->have_posts() ):$get_related_posts->the_post(); ?>
@@ -127,11 +130,122 @@ $magbook_display_page_single_featured_image = $magbook_settings['magbook_display
 						</article>
 					<?php 
 					endwhile;
-				 	wp_reset_postdata(); 
+				 	wp_reset_postdata();
 					?>
 				</div>
-			<?php } ?>
+				<?php
+				global $post;
+			 	$post = get_post($post_id);
+			 	$post_id = $post->ID;
+			 	$post = get_next_post();
+			 	?>
+			 	<article id="post-<?php the_ID(); ?>" <?php post_class();?>>
+				<?php if(has_post_thumbnail() && $magbook_display_page_single_featured_image == 0 ){ ?>
+					<div class="post-image-content">
+						<figure class="post-featured-image">
+							<?php the_post_thumbnail(); ?>
+						</figure>
+					</div><!-- end.post-image-content -->
+				<?php }
+				$magbook_entry_meta_single = $magbook_settings['magbook_entry_meta_single']; ?>
+					<header class="entry-header">
+						<?php if($magbook_entry_meta_single!='hide'){ ?>
+							<div class="entry-meta">
+								<?php do_action('magbook_post_categories_list_id'); ?>
+							</div>
+							<?php } ?>
+							<h1 class="entry-title"><?php the_title();?></h1> <!-- end.entry-title -->
+							<?php if($magbook_entry_meta_single!='hide'){
+								echo  '<div class="entry-meta">';
+									echo get_avatar( get_the_author_meta('ID'), $size = '96');
+									echo '<span class="author vcard"><a href="'.esc_url(get_author_posts_url( get_the_author_meta( 'ID' ) )).'" title="'.the_title_attribute('echo=0').'"><i class="fa fa-user-o"></i> ' .esc_html(get_the_author()).'</a></span>';
+									printf( '<span class="posted-on"><a href="%1$s" title="%2$s"><i class="fa fa-calendar-o"></i> %3$s</a></span>',
+													esc_url(get_the_permalink()),
+													esc_attr( get_the_time(get_option( 'date_format' )) ),
+													esc_html( get_the_time(get_option( 'date_format' )) )
+												);
+								if ( comments_open()) { ?>
+										<span class="comments">
+										<?php comments_popup_link( __( '<i class="fa fa-comment-o"></i> No Comments', 'magbook' ), __( '<i class="fa fa-comment-o"></i> 1 Comment', 'magbook' ), __( '<i class="fa fa-comment-o"></i> % Comments', 'magbook' ), '', __( 'Comments Off', 'magbook' ) ); ?> </span>
+								<?php }
 
+								$tag_list = get_the_tag_list();
+								$format = get_post_format();
+								if ( current_theme_supports( 'post-formats', $format ) ) {
+									printf( '<span class="entry-format">%1$s<a href="%2$s">%3$s</a></span>',
+									sprintf( ''),
+									esc_url( get_post_format_link( $format ) ),
+									esc_html(get_post_format_string( $format ))
+									);
+								}
+								if(!empty($tag_list)){ ?>
+									<span class="tag-links">
+										<?php   echo get_the_tag_list(); ?>
+									</span> <!-- end .tag-links -->
+								<?php }
+								echo  '</div> <!-- end .entry-meta -->';
+							} ?>
+					</header> <!-- end .entry-header -->
+					<div class="entry-content">
+							<?php the_excerpt() ?>			
+					</div><!-- end .entry-content -->
+				</article>
+				<?php
+				global $post;
+			 	$post = get_next_post();
+			 	?>
+			 	<article id="post-<?php the_ID(); ?>" <?php post_class();?>>
+				<?php if(has_post_thumbnail() && $magbook_display_page_single_featured_image == 0 ){ ?>
+					<div class="post-image-content">
+						<figure class="post-featured-image">
+							<?php the_post_thumbnail(); ?>
+						</figure>
+					</div><!-- end.post-image-content -->
+				<?php }
+				$magbook_entry_meta_single = $magbook_settings['magbook_entry_meta_single']; ?>
+					<header class="entry-header">
+						<?php if($magbook_entry_meta_single!='hide'){ ?>
+							<div class="entry-meta">
+								<?php do_action('magbook_post_categories_list_id'); ?>
+							</div>
+							<?php } ?>
+							<h1 class="entry-title"><?php the_title();?></h1> <!-- end.entry-title -->
+							<?php if($magbook_entry_meta_single!='hide'){
+								echo  '<div class="entry-meta">';
+									echo get_avatar( get_the_author_meta('ID'), $size = '96');
+									echo '<span class="author vcard"><a href="'.esc_url(get_author_posts_url( get_the_author_meta( 'ID' ) )).'" title="'.the_title_attribute('echo=0').'"><i class="fa fa-user-o"></i> ' .esc_html(get_the_author()).'</a></span>';
+									printf( '<span class="posted-on"><a href="%1$s" title="%2$s"><i class="fa fa-calendar-o"></i> %3$s</a></span>',
+													esc_url(get_the_permalink()),
+													esc_attr( get_the_time(get_option( 'date_format' )) ),
+													esc_html( get_the_time(get_option( 'date_format' )) )
+												);
+								if ( comments_open()) { ?>
+										<span class="comments">
+										<?php comments_popup_link( __( '<i class="fa fa-comment-o"></i> No Comments', 'magbook' ), __( '<i class="fa fa-comment-o"></i> 1 Comment', 'magbook' ), __( '<i class="fa fa-comment-o"></i> % Comments', 'magbook' ), '', __( 'Comments Off', 'magbook' ) ); ?> </span>
+								<?php }
+
+								$tag_list = get_the_tag_list();
+								$format = get_post_format();
+								if ( current_theme_supports( 'post-formats', $format ) ) {
+									printf( '<span class="entry-format">%1$s<a href="%2$s">%3$s</a></span>',
+									sprintf( ''),
+									esc_url( get_post_format_link( $format ) ),
+									esc_html(get_post_format_string( $format ))
+									);
+								}
+								if(!empty($tag_list)){ ?>
+									<span class="tag-links">
+										<?php   echo get_the_tag_list(); ?>
+									</span> <!-- end .tag-links -->
+								<?php }
+								echo  '</div> <!-- end .entry-meta -->';
+							} ?>
+					</header> <!-- end .entry-header -->
+					<div class="entry-content">
+							<?php the_excerpt() ?>			
+					</div><!-- end .entry-content -->
+				</article>
+			<?php } ?>
 			</main><!-- end #main -->
 		</div>
 		<div class="col-sm-3">

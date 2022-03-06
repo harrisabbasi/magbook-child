@@ -914,4 +914,17 @@ function magbook_ajax_more_post_ajax() {
 
 add_action( 'wp_ajax_nopriv_magbook_ajax_more_post', 'magbook_ajax_more_post_ajax' );
 add_action( 'wp_ajax_magbook_ajax_more_post', 'magbook_ajax_more_post_ajax' );
+
+// Replaces the excerpt "Read More" text by a link
+function new_excerpt_more($more) {
+       global $post;
+    return '<a class="moretag" href="'. get_permalink($post->ID) . '">Continue Reading</a>';
+}
+add_filter('excerpt_more', 'new_excerpt_more');
+
+function child_theme_setup() {
+    // override parent theme's 'more' text for excerpts
+    remove_filter( 'excerpt_more', 'magbook_continue_reading' ); 
+}
+add_action( 'after_setup_theme', 'child_theme_setup' );
 ?>
