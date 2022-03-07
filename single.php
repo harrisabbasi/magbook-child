@@ -9,7 +9,7 @@
 get_header();
 $magbook_settings = magbook_get_theme_options();
 $magbook_display_page_single_featured_image = $magbook_settings['magbook_display_page_single_featured_image']; ?>
-<div class="wrap">
+<div class="wrap single-post">
 	<div class="row">
 		<div class="col-sm-9">
 			<main id="main" class="site-main" role="main">
@@ -245,6 +245,8 @@ $magbook_display_page_single_featured_image = $magbook_settings['magbook_display
 							<?php the_excerpt() ?>			
 					</div><!-- end .entry-content -->
 				</article>
+				<?php wp_reset_postdata();
+				echo do_shortcode("[wpp range='last7days' limit=8 stats_views=0 stats_date=1 order_by='views']"); ?>
 			<?php } ?>
 			</main><!-- end #main -->
 		</div>

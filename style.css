@@ -151,3 +151,19 @@ Text Domain:  twentytwentyonechild
 .more-like-this .mb-title a{
 	font-size: 22px;
 }
+
+/*Styling trending second section*/
+
+.single-post .wpp-list{
+	display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.single-post .wpp-list li{
+	width:22.5%;
+}
+
+.single-post .wpp-list .box span{
+	display: none;
+}
