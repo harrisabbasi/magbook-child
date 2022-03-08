@@ -157,7 +157,7 @@ function my_custom_popular_posts_html_list($popular_posts, $instance) {
         }
 
         $output .= "<li>";
-        $output .= get_the_post_thumbnail($popular_post->id);
+        $output .= get_the_post_thumbnail($popular_post->id, "medium-image");
         $output .= $stats;
         $output .= "<div class='box'><span>" . $i . "." . "</span>";
         $output .= "<h2 class=\"entry-title\"><a href=\"" . get_permalink($popular_post->id) . "\" title=\"" . esc_attr($popular_post->title) . "\">" . $popular_post->title . "</a></h2>";
@@ -924,7 +924,11 @@ add_filter('excerpt_more', 'new_excerpt_more');
 
 function child_theme_setup() {
     // override parent theme's 'more' text for excerpts
-    remove_filter( 'excerpt_more', 'magbook_continue_reading' ); 
+    remove_filter( 'excerpt_more', 'magbook_continue_reading' );
+
+    add_image_size( 'large-image', 445, 600, true );
+    add_image_size( 'medium-image', 445, 350, true );
+    add_image_size( 'small-image', 80, 80, true ); 
 }
 add_action( 'after_setup_theme', 'child_theme_setup' );
 ?>

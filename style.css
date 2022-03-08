@@ -121,6 +121,7 @@ Text Domain:  twentytwentyonechild
 	position: relative;
 	color: #fff;
 	overflow: hidden;
+	margin-bottom:10px;
 }
 
 .image-text .entry-title a{
@@ -167,3 +168,24 @@ Text Domain:  twentytwentyonechild
 .single-post .wpp-list .box span{
 	display: none;
 }
+
+/*End Trending Section*/
+
+/*Three Tabs Styling*/
+.tabs-container .mb-popular .has-post-thumbnail .mb-content {
+    width: 100%;
+    position: absolute;
+    margin-left: 95px;
+}
+
+.tabs-container .category-text{
+	margin:0;
+}
+
+.tabs-container .mb-popular .mb-post {
+    
+     margin-bottom: 0px; 
+    
+     border-bottom: 0px; 
+     padding-bottom: 0px; 
+ }

@@ -105,38 +105,65 @@ class Latest_news_widget extends WP_Widget {
 			<?php	} ?>
 				<div class="cat-box-wrap clearfix">
 					<?php
+					$i = 1;
 					while( $get_featured_posts->have_posts() ):$get_featured_posts->the_post(); 
 					?>
 					<div class="latest-news image-text">
- 						<article id="post-<?php the_ID(); ?>" <?php post_class();?>>
-							<?php if(has_post_thumbnail() ){ ?>
-							<div class="cat-box-image">
-								<figure class="post-featured-image">
-									<a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
-								</figure>
-								<!-- end .post-featured-image -->
-							</div>
-							<!-- end .cat-box-image -->
-							<?php } 
-							$cats = get_the_category(get_the_ID());
-							$human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
-							?>
-							<p class="cat-info"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
-							<div class="cat-box-text">
-								<header class="entry-header">
-									<h2 class="entry-title">
-										<a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-									</h2>
-									<!-- end.entry-title -->
-								</header>
-								<!-- end .entry-header -->
-							</div>
-							
-						</article>
-						<!-- end .post -->
+						<?php if ($i == 1){ ?>
+	 						<article id="post-<?php the_ID(); ?>" <?php post_class();?>>
+								<?php if(has_post_thumbnail() ){ ?>
+								<div class="cat-box-image">
+									<figure class="post-featured-image">
+										<a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large-image'); ?></a>
+									</figure>
+									<!-- end .post-featured-image -->
+								</div>
+								<!-- end .cat-box-image -->
+								<?php } 
+								$cats = get_the_category(get_the_ID());
+								$human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
+								?>
+								<p class="cat-info"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+								<div class="cat-box-text">
+									<header class="entry-header">
+										<h2 class="entry-title">
+											<a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+										</h2>
+										<!-- end.entry-title -->
+									</header>
+									<!-- end .entry-header -->
+								</div>
+							</article>
+						<?php } else {
+						?>
+							<article id="post-<?php the_ID(); ?>" <?php post_class();?>>
+								<?php if(has_post_thumbnail() ){ ?>
+								<div class="cat-box-image">
+									<figure class="post-featured-image">
+										<a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('medium-image'); ?></a>
+									</figure>
+									<!-- end .post-featured-image -->
+								</div>
+								<!-- end .cat-box-image -->
+								<?php } 
+								$cats = get_the_category(get_the_ID());
+								$human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
+								?>
+								<p class="cat-info"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+								<div class="cat-box-text">
+									<header class="entry-header">
+										<h2 class="entry-title">
+											<a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+										</h2>
+										<!-- end.entry-title -->
+									</header>
+									<!-- end .entry-header -->
+								</div>
+							</article>
+						<?php } ?>
 					</div>
 						<?php 
-
+					$i++;
 					endwhile;
 					wp_reset_postdata(); 
 

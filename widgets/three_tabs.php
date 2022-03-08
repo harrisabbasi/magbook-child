@@ -92,7 +92,7 @@ class Three_tabs extends WP_Widget {
 								<div <?php post_class('mb-post');?>>
 									<?php if ( has_post_thumbnail() ) { ?>
 										<figure class="mb-featured-image">
-											<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+											<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('small-image'); ?></a>
 										</figure> <!-- end.post-featured-image -->
 									<?php } ?>
 									<div class="mb-content">
@@ -100,7 +100,7 @@ class Three_tabs extends WP_Widget {
 										$cats = get_the_category(get_the_ID());
 										$human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
 										?>
-										<p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+										<p class="category-text"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
 
 										<?php the_title( sprintf( '<h3 class="mb-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' ); ?>
 										
@@ -137,7 +137,7 @@ class Three_tabs extends WP_Widget {
 								<div <?php post_class('mb-post');?>>
 									<?php if ( has_post_thumbnail() ) { ?>
 										<figure class="mb-featured-image">
-											<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+											<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('small-image'); ?></a>
 										</figure> <!-- end.post-featured-image -->
 									<?php } ?>
 									<div class="mb-content">
@@ -145,7 +145,7 @@ class Three_tabs extends WP_Widget {
 										$cats = get_the_category(get_the_ID());
 										$human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
 										?>
-										<p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+										<p class="category-text"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
 
 										<?php the_title( sprintf( '<h3 class="mb-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' ); ?>
 										
