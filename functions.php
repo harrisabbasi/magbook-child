@@ -157,9 +157,9 @@ function my_custom_popular_posts_html_list($popular_posts, $instance) {
         }
 
         $output .= "<li>";
-        $output .= get_the_post_thumbnail($popular_post->id, "medium-image");
+        $output .= get_the_post_thumbnail($popular_post->id, "wpp-image");
         $output .= $stats;
-        $output .= "<div class='box'><span>" . $i . "." . "</span>";
+        $output .= "<div class='box'><span>" . $i . "</span>";
         $output .= "<h2 class=\"entry-title\"><a href=\"" . get_permalink($popular_post->id) . "\" title=\"" . esc_attr($popular_post->title) . "\">" . $popular_post->title . "</a></h2>";
         $output .= "<div class='clear'></div></div>";
         $output .= $excerpt;
@@ -213,7 +213,7 @@ function shortcode_one( $atts = [], $content = null, $tag = '' ) {
                     <?php if(has_post_thumbnail() ){ ?>
                         <div class="cat-box-image">
                             <figure class="post-featured-image">
-                                <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                                <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large-image'); ?></a>
                                 </figure>
                                         <!-- end .post-featured-image -->
                         </div>
@@ -243,7 +243,7 @@ function shortcode_one( $atts = [], $content = null, $tag = '' ) {
                     <?php if(has_post_thumbnail() ){ ?>
                         <div class="cat-box-image">
                             <figure class="post-featured-image">
-                                <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                                <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('wpp-image'); ?></a>
                                 </figure>
                                         <!-- end .post-featured-image -->
                         </div>
@@ -274,7 +274,7 @@ function shortcode_one( $atts = [], $content = null, $tag = '' ) {
                 <div <?php post_class('mb-post');?>>
                     <?php if ( has_post_thumbnail() ) { ?>
                         <figure class="mb-featured-image">
-                            <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                            <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('small-image'); ?></a>
                         </figure> <!-- end.post-featured-image -->
                     <?php } ?>
                     <div class="mb-content">
@@ -282,7 +282,7 @@ function shortcode_one( $atts = [], $content = null, $tag = '' ) {
                         $cats = get_the_category(get_the_ID());
                         $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
                         ?>
-                        <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+                        <p class="category-text"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
 
                         <?php the_title( sprintf( '<h3 class="mb-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' ); ?>
                         
@@ -547,7 +547,7 @@ function shortcode_four( $atts = [], $content = null, $tag = '' ) {
                     <?php if(has_post_thumbnail() ){ ?>
                         <div class="cat-box-image">
                             <figure class="post-featured-image">
-                                <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                                <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large-image'); ?></a>
                                 </figure>
                                         <!-- end .post-featured-image -->
                         </div>
@@ -577,7 +577,7 @@ function shortcode_four( $atts = [], $content = null, $tag = '' ) {
                     <?php if(has_post_thumbnail() ){ ?>
                         <div class="cat-box-image">
                             <figure class="post-featured-image">
-                                <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                                <a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('wpp-image'); ?></a>
                                 </figure>
                                         <!-- end .post-featured-image -->
                         </div>
@@ -585,7 +585,7 @@ function shortcode_four( $atts = [], $content = null, $tag = '' ) {
                         $cats = get_the_category(get_the_ID());
                         $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
                         ?>
-                        <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+                        <p class="category-text"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
                         <div class="cat-box-text">
                             <header class="entry-header">
                                 <h2 class="entry-title">
@@ -608,7 +608,7 @@ function shortcode_four( $atts = [], $content = null, $tag = '' ) {
                 <div <?php post_class('mb-post');?>>
                     <?php if ( has_post_thumbnail() ) { ?>
                         <figure class="mb-featured-image">
-                            <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('magbook-featured-image'); ?></a>
+                            <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('small-image'); ?></a>
                         </figure> <!-- end.post-featured-image -->
                     <?php } ?>
                     <div class="mb-content">
@@ -616,7 +616,7 @@ function shortcode_four( $atts = [], $content = null, $tag = '' ) {
                         $cats = get_the_category(get_the_ID());
                         $human_time = human_time_diff(get_the_time('U'), current_time ('timestamp'));
                         ?>
-                        <p><?php echo $cats[0]->name. ' / '.$human_time ?></p>
+                        <p class="category-text"><?php echo $cats[0]->name. ' / '.$human_time ?></p>
 
                         <?php the_title( sprintf( '<h3 class="mb-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' ); ?>
                         
@@ -928,7 +928,8 @@ function child_theme_setup() {
 
     add_image_size( 'large-image', 445, 600, true );
     add_image_size( 'medium-image', 445, 350, true );
-    add_image_size( 'small-image', 80, 80, true ); 
+    add_image_size( 'small-image', 80, 80, true );
+    add_image_size( 'wpp-image', 590, 354, true );
 }
 add_action( 'after_setup_theme', 'child_theme_setup' );
 ?>

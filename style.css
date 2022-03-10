@@ -10,14 +10,15 @@ Text Domain:  twentytwentyonechild
 */
 
 .container-one{
-	width: 65%;
+	width: 66.66%;
 	float:left;
 	box-sizing: border-box;
 }
 
 .post-one{
-	width: 60%;
-	padding-left: 30px;
+	width: 62.5%;
+	padding-left: 15px;
+	padding-right: 15px;
 	box-sizing: border-box;
 }
 
@@ -32,7 +33,9 @@ Text Domain:  twentytwentyonechild
 }
 
 .post-two{
-	width: 40%;
+	width: 37.5%;
+	padding-left: 15px;
+	padding-right: 15px;
 	box-sizing: border-box;
 }
 
@@ -43,7 +46,7 @@ Text Domain:  twentytwentyonechild
 
 
 .container-2{
-	width:35%;
+	width:33.34%;
 	float:right;
 	box-sizing: border-box;
 	padding-left: 30px;
@@ -172,20 +175,35 @@ Text Domain:  twentytwentyonechild
 /*End Trending Section*/
 
 /*Three Tabs Styling*/
-.tabs-container .mb-popular .has-post-thumbnail .mb-content {
+.tabs-container .mb-popular .has-post-thumbnail .mb-content, .category-one .mb-popular .has-post-thumbnail .mb-content {
     width: 100%;
     position: absolute;
     margin-left: 95px;
 }
 
-.tabs-container .category-text{
+.tabs-container .category-text, .category-one .category-text{
 	margin:0;
 }
 
-.tabs-container .mb-popular .mb-post {
+.tabs-container .mb-popular .mb-post, .category-one .mb-popular .mb-post {
     
      margin-bottom: 0px; 
     
      border-bottom: 0px; 
      padding-bottom: 0px; 
  }
+
+ .front-page .wpp-list .entry-title{
+ 	font-size:16px;
+ }
+
+/* Alligning category one with top content*/
+
+.category-one{
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+.post-four article{
+	margin-bottom: 15px;
+}

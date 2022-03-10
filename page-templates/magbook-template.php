@@ -9,7 +9,7 @@
  * @since Magbook 1.0
  */
 get_header(); ?>
-<div class="wrap">
+<div class="wrap front-page">
 	<?php 	if( is_active_sidebar( 'magbook_primary_fullwidth' ) && class_exists('Magbook_Plus_Features') ){
 		echo '<div class="primary-full-width clearfix">';
 			dynamic_sidebar ('magbook_primary_fullwidth');
