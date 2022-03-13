@@ -53,7 +53,7 @@ Text Domain:  twentytwentyonechild
 }
 
 .container-four{
-	width:35%;
+	width:33.34%;
 	float:right;
 	box-sizing: border-box;
 	padding-right: 30px;
@@ -206,4 +206,8 @@ Text Domain:  twentytwentyonechild
 
 .post-four article{
 	margin-bottom: 15px;
+}
+
+.subcategory{
+	width:22.5%;
 }

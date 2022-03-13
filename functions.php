@@ -779,23 +779,25 @@ function shortcode_six( $atts = [], $content = null, $tag = '' ) {
     $category_atts = shortcode_atts(
         array(
             'category' => '',
-            'posts_per_page' => 10
+            'posts_per_page' => 10,
+            'paged' => 2,
+            'title' => 'More Like This'
         ), $atts, $tag
     );
 
     if ($category_atts['category'] != ""){
-        $args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => $category_atts['posts_per_page'], 'paged' => 2, 'post_status' => 'publish', 'category_name' => $category_atts['category']);
+        $args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => $category_atts['posts_per_page'], 'paged' => $category_atts['paged'], 'post_status' => 'publish', 'category_name' => $category_atts['category']);
         $posts = new WP_Query( $args );
     }
     else{
-        $args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => $category_atts['posts_per_page'], 'paged' =>2, 'post_status' => 'publish');
+        $args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => $category_atts['posts_per_page'], 'paged' => $category_atts['paged'], 'post_status' => 'publish');
         $posts = new WP_Query( $args );
     }
 
     ?>
     <?php if ($posts->have_posts()) { ?>
     <div class="more-like-this mb-popular">
-        <h1 class="category-title">More Like This</h1>
+        <h1 class="category-title"><?php echo $category_atts['title'] ?></h1>
         <?php
         while( $posts->have_posts() ): $posts->the_post(); ?>
             <div <?php post_class('mb-post');?>>
@@ -820,7 +822,7 @@ function shortcode_six( $atts = [], $content = null, $tag = '' ) {
         endwhile;
         wp_reset_postdata();
         ?>
-        <button class="btn btn-primary" id="load-more" data-page="3" data-posts="<?php echo $category_atts['posts_per_page'] ?>" data-category="<?php echo $category_atts['category'] ?>" >Load More Posts</button>
+        <button class="btn btn-primary" id="load-more" data-page="<?php echo $category_atts['paged'] + 1 ?>" data-posts="<?php echo $category_atts['posts_per_page'] ?>" data-category="<?php echo $category_atts['category'] ?>" >Load More Posts</button>
         <?php wp_nonce_field( 'more_posts_nonce_action', 'more_posts_nonce' ); ?>
     </div>
     <?php }
@@ -868,7 +870,7 @@ function magbook_ajax_more_post_ajax() {
     );
 
     if ( ! empty( $category ) ) {
-        $query_args['cat'] = $category;
+        $query_args['category_name'] = $category;
     }
 
     $posts_query = new WP_Query( $query_args );
@@ -932,4 +934,14 @@ function child_theme_setup() {
     add_image_size( 'wpp-image', 590, 354, true );
 }
 add_action( 'after_setup_theme', 'child_theme_setup' );
+
+function wpd_subcategory_template( $template ) {
+    $cat = get_queried_object();
+    if ( isset( $cat ) && $cat->category_parent ) {
+        $template = locate_template( 'subcategory.php' );
+    }
+
+    return $template;
+}
+add_filter( 'category_template', 'wpd_subcategory_template' );
 ?>
