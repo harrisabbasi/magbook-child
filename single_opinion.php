@@ -1,22 +1,4 @@
 <?php
-/**
- * The template for displaying all single posts.
- *
- * @package Theme Freesia
- * @subpackage Magbook
- * @since Magbook 1.0
- */
-$args = array(
-        'include'  => get_the_ID(),
-        'category_name' => 'opinion' ,
-        'fields'   => 'ids',
-    );
-    
-if(count(get_posts($args)) > 0):
-
-include("single_opinion.php") ?>
-
-<?php else:
 get_header();
 $magbook_settings = magbook_get_theme_options();
 $magbook_display_page_single_featured_image = $magbook_settings['magbook_display_page_single_featured_image']; ?>
@@ -45,9 +27,11 @@ $magbook_display_page_single_featured_image = $magbook_settings['magbook_display
 							<?php } ?>
 							<h1 class="entry-title"><?php the_title();?></h1> <!-- end.entry-title -->
 							<?php if($magbook_entry_meta_single!='hide'){
+								$cats = get_the_category(get_the_ID());
+								$image = get_field('category_image', $cats[0]);
 								echo  '<div class="entry-meta">';
-									echo get_avatar( get_the_author_meta('ID'), $size = '96');
-									echo '<span class="author vcard"><a href="'.esc_url(get_author_posts_url( get_the_author_meta( 'ID' ) )).'" title="'.the_title_attribute('echo=0').'"><i class="fa fa-user-o"></i> ' .esc_html(get_the_author()).'</a></span>';
+									echo '<img width="200px" src="' . $image["url"] .'">';
+									echo '<a href="'. get_category_link( $cats[0]->term_id ) .'"><span>' . $cats[0]->name . '</span></a>';
 									printf( '<span class="posted-on"><a href="%1$s" title="%2$s"><i class="fa fa-calendar-o"></i> %3$s</a></span>',
 													esc_url(get_the_permalink()),
 													esc_attr( get_the_time(get_option( 'date_format' )) ),
@@ -271,4 +255,3 @@ $magbook_display_page_single_featured_image = $magbook_settings['magbook_display
 	</div>
 </div><!-- end .wrap -->
 <?php get_footer(); ?>
-<?php endif; ?>
