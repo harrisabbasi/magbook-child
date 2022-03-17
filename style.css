@@ -215,17 +215,17 @@ Text Domain:  twentytwentyonechild
 /*Front Page Mobile Responsiveness*/
 
 @media (max-width: 767px){
-	.front-page .wpp-list li{
+	.front-page .wpp-list li, .category-general .wpp-list li{
 		clear:none;
 		float: left;
 		width: calc(50% - 10px);
 	}
 
-	.front-page .wpp-list li:nth-child(odd){
+	.front-page .wpp-list li:nth-child(odd), .category-general .wpp-list li:nth-child(odd){
 		margin-right:20px;
 	}
 
-	.front-page .wpp-list:after{
+	.front-page .wpp-list:after, .category-general .wpp-list:after{
 		content: '';
 		display: block;
 		clear: both;
@@ -269,6 +269,12 @@ Text Domain:  twentytwentyonechild
 
 	.flex-container .subcategory{
 		width: 47.5%;
+	}
+
+	/*Category General Page Mobile Responsiveness*/
+
+	.category-four .container-one, .category-four .container-four{
+		width: 100%;
 	}
 }
 
