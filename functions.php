@@ -762,6 +762,40 @@ function shortcode_five( $atts = [], $content = null, $tag = '' ) {
 add_shortcode( 'category_four', 'shortcode_five' );
 
 /**
+ * The [opinion] shortcode.
+ *
+ * Displays the opinion section
+ *
+ * @param array  $atts    Shortcode attributes. Default empty.
+ * @param string $content Shortcode content. Default null.
+ * @param string $tag     Shortcode tag (name). Default empty.
+ * @return string Shortcode output.
+ */
+function shortcode_seven( $atts = [], $content = null, $tag = '' ) {
+    
+
+    
+    $args = array('parent' => 42, 'hide_empty'  => false);
+    $subcategories = get_categories($args);
+    
+    ?>
+    <div class="flex-container">
+        <?php foreach($subcategories as $category):
+            $image = get_field('category_image', $category);?>
+            <div class="subcategory">
+                <a href="<?php echo  get_category_link( $category->term_id ) ?>">
+                    <img src="<?php echo $image['url'] ?>">
+                    <h2><?php echo $category->name ?></h2>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <?php
+
+}
+ 
+add_shortcode( 'opinion', 'shortcode_seven' );
+/**
  * The [more_like_this] shortcode.
  *
  * Displays additional posts
