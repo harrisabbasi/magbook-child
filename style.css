@@ -211,3 +211,64 @@ Text Domain:  twentytwentyonechild
 .subcategory{
 	width:22.5%;
 }
+
+/*Front Page Mobile Responsiveness*/
+
+@media (max-width: 767px){
+	.front-page .wpp-list li{
+		clear:none;
+		float: left;
+		width: calc(50% - 10px);
+	}
+
+	.front-page .wpp-list li:nth-child(odd){
+		margin-right:20px;
+	}
+
+	.front-page .wpp-list:after{
+		content: '';
+		display: block;
+		clear: both;
+	}
+
+	.category-one .container-one,.category-one .post-one, .category-one .post-two, .category-one .container-2{
+		width: 100%;
+	}
+
+	.category-one .container-2{
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	.category-one .post-two article{
+		float:left;
+		width:calc(50% - 10px);
+	}
+
+	.category-one .post-two article:nth-child(1){
+		margin-right:20px;
+	}
+
+	.category-one .post-two:after{
+		content: '';
+		display: block;
+		clear: both;
+	}
+
+	.category-two .post-half{
+		width: 100%;
+	}
+
+	.category-two .post-quarter{
+		width: 47.5%;
+	}
+
+	.videos .video-one, .videos .video-two{
+		width: 100%;
+	}
+
+	.flex-container .subcategory{
+		width: 47.5%;
+	}
+}
+

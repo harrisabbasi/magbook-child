@@ -17,7 +17,7 @@ get_header(); ?>
 	} ?>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-3">
+			<div class="col-md-3">
 				<?php 
 				if( is_active_sidebar( 'new_section_one' )){
 					dynamic_sidebar( 'new_section_one' );
@@ -25,14 +25,14 @@ get_header(); ?>
 				the_content();
 				?>
 			</div>
-			<div class="col-sm-5">
+			<div class="col-md-5">
 				<?php 
 				if( is_active_sidebar( 'new_section_two' )){
 					dynamic_sidebar( 'new_section_two' );
 				}
 				?>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-md-4">
 				<?php 
 				if( is_active_sidebar( 'new_section_three' )){
 					dynamic_sidebar( 'new_section_three' );
@@ -48,7 +48,7 @@ get_header(); ?>
 
 		<?php echo do_shortcode("[category_three category='Business'][/category_three]"); ?>
 
-		<?php echo do_shortcode("[opinion][/opinion"); ?>
+		<?php echo do_shortcode("[opinion][/opinion]"); ?>
 
 		<?php echo do_shortcode("[more_like_this category='' posts_per_page='10' ][/more_like_this]"); ?>
 	</div>
