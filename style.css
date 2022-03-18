@@ -212,6 +212,14 @@ Text Domain:  twentytwentyonechild
 	width:22.5%;
 }
 
+.single-opinion-post .entry-header img{
+	margin-right: 15px;
+}
+
+.single-opinion-post .entry-header .cat-name{
+	margin-right: 15px;
+}
+
 /*Front Page Mobile Responsiveness*/
 
 @media (max-width: 767px){
@@ -276,5 +284,14 @@ Text Domain:  twentytwentyonechild
 	.category-four .container-one, .category-four .container-four{
 		width: 100%;
 	}
+
+	.single-post .wpp-list li{
+		width:47.5%;
+	}
+
+	.single-post .flex-container article{
+		width: 47.5%;
+	}
+
 }
 
