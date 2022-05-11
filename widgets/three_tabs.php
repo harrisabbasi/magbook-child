@@ -90,7 +90,21 @@ class Three_tabs extends WP_Widget {
 				<div class="tab-content">
 					<div class="mb-popular tab-latest">
 						<?php 
-							$args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => $magbook_latest_posts, 'post_status' => 'publish');
+							$categories=get_categories(
+							    array( 'parent' => 42 )
+							);
+							$cat_array = array();
+							foreach ($categories as $cat) {
+								array_push($cat_array, $cat->term_id);
+							}
+							$args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => $magbook_latest_posts, 'post_status' => 'publish', 'category__not_in' => $cat_array, 'tax_query' => array(
+				        			array(
+							            'taxonomy' => 'post_format',
+							            'field' => 'slug',
+							            'terms' => array( 'post-format-video' ),
+							            'operator' => 'NOT IN'
+				        			)
+				        		));
 							$popular = new WP_Query( $args );
 
 							if ( $popular->have_posts() ) :

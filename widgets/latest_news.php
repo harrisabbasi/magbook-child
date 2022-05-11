@@ -71,6 +71,13 @@ class Latest_news_widget extends WP_Widget {
 		$link = isset( $instance[ 'link' ] ) ? $instance[ 'link' ] : '';
 		$number = empty( $instance[ 'number' ] ) ? 3 : $instance[ 'number' ];
 		$category = isset( $instance[ 'category' ] ) ? $instance[ 'category' ] : '';
+		$categories=get_categories(
+		    array( 'parent' => 42 )
+		);
+		$cat_array = array();
+		foreach ($categories as $cat) {
+			array_push($cat_array, $cat->term_id);
+		}
 
 		if($category !='-1'){
 			$get_featured_posts = new WP_Query( array(
@@ -83,6 +90,15 @@ class Latest_news_widget extends WP_Widget {
 			$get_featured_posts = new WP_Query( array(
 				'posts_per_page' 			=> absint($number),
 				'post_status'		=>	'publish',
+				'category__not_in' => $cat_array,
+				'tax_query' => array(
+				        array(
+				            'taxonomy' => 'post_format',
+				            'field' => 'slug',
+				            'terms' => array( 'post-format-video' ),
+				            'operator' => 'NOT IN'
+				        )
+				    ),
 				'ignore_sticky_posts'=>	'true'
 			) );
 
