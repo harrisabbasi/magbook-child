@@ -220,6 +220,18 @@ Text Domain:  twentytwentyonechild
 	margin-right: 15px;
 }
 
+.float-left{
+	float: left;
+}
+
+.videos-2{
+	display: flex;
+	flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
 /*Front Page Mobile Responsiveness*/
 
 @media (max-width: 767px){

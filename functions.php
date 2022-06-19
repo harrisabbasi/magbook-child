@@ -663,6 +663,30 @@ function shortcode_five( $atts = [], $content = null, $tag = '' ) {
                         'category_name' => $category_atts['category']);
         $posts = new WP_Query( $args );
     }
+    else{
+        $categories=get_categories(
+            array( 'parent' => 42 )
+        );
+        $cat_array = array();
+        foreach ($categories as $cat) {
+            array_push($cat_array, $cat->term_id);
+        }
+
+        $posts = new WP_Query( array(
+            'posts_per_page'            => 14,
+            'post_status'       =>  'publish',
+            'category__not_in' => $cat_array,
+            'tax_query' => array(
+                    array(
+                        'taxonomy' => 'post_format',
+                        'field' => 'slug',
+                        'terms' => array( 'post-format-video' ),
+                        'operator' => 'NOT IN'
+                    )
+                ),
+            'ignore_sticky_posts'=> 'true'
+        ) );
+    }
     ?>
     <div class="category-four">
         <div class="container-one float-right">
@@ -779,6 +803,7 @@ function shortcode_seven( $atts = [], $content = null, $tag = '' ) {
     $subcategories = get_categories($args);
     
     ?>
+    <h1>Opinion</h1>
     <div class="flex-container">
         <?php foreach($subcategories as $category):
             $image = get_field('category_image', $category);?>
@@ -824,7 +849,22 @@ function shortcode_six( $atts = [], $content = null, $tag = '' ) {
         $posts = new WP_Query( $args );
     }
     else{
-        $args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => $category_atts['posts_per_page'], 'paged' => $category_atts['paged'], 'post_status' => 'publish');
+        $categories=get_categories(
+            array( 'parent' => 42 )
+        );
+        $cat_array = array();
+        foreach ($categories as $cat) {
+            array_push($cat_array, $cat->term_id);
+        }
+
+        $args = array( 'ignore_sticky_posts' => 1, 'posts_per_page' => $category_atts['posts_per_page'], 'paged' => $category_atts['paged'], 'post_status' => 'publish', 'category__not_in' => $cat_array, 'tax_query' => array(
+                        array(
+                            'taxonomy' => 'post_format',
+                            'field' => 'slug',
+                            'terms' => array( 'post-format-video' ),
+                            'operator' => 'NOT IN'
+                        )
+                    ));
         $posts = new WP_Query( $args );
     }
 
